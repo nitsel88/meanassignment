@@ -1,0 +1,30 @@
+
+<div class="card">
+  <h3 class="card-header text-lg-left">List of Users</h3>
+  <div class="card-body table-responsive">    
+  <table class="table table-hover no-cellpadding">
+    <thead>
+      <tr>
+        <th scope="row">First Name</th>
+        <th scope="row">Last Name</th>
+        <th scope="row">Email</th>
+        <th scope="row">SSO ID</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users">
+        <td>{{user.fname}}</td>
+        <td>{{user.lname}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.ssoid}}</td>
+    </tr>
+    </tbody>
+  </table>
+   </div>  
+  </div> 
+<br>
+<div class="card">
+  <a href="/newuser" class="card-header text-lg-left">Add New user</a>
+</div>
+
+
