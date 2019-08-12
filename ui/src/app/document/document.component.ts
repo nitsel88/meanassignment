@@ -7,6 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DocumentComponent implements OnInit {
 
+  files = [{
+    no: 1 ,
+    name: "sample_pdf.pdf",
+    type: "application/pdf",
+    desc: "my pdf file"
+  }, {
+    no: 2 ,
+    name: "myfile.txt",
+    type: "application/txt",
+    desc: "my text file"
+  }]
   constructor() { }
 
   ngOnInit() {

@@ -1,13 +1,17 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
   <h1>
 
   </h1>
-
-<div class="row align-items-center ">
-<div class="mx-auto">   
-<router-outlet></router-outlet>
-</div>
-</div>
-
+  <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+         <router-outlet></router-outlet>
+        </div>
+     </div>
+   
+     <div *ngIf="showNavLinks">
+        <div class="customlegend legendleft"> <a href="/managedocs">click here to upload/manage your documents</a></div>
+        <div class="customlegend legendright"> Go to <a href="/users">Users List</a></div>
+      </div>
+    </div>
 

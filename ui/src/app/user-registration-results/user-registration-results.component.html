@@ -1,0 +1,10 @@
+<div *ngIf="regstatus == 'success'; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>
+    <div class="alert alert-success" role="alert">
+        User {{username}} is registered successfully !!
+    </div>
+</ng-template>
+<ng-template #elseBlock>
+    <div class="alert alert-danger" role="alert">
+        registeration unsuccessful - please try after sometime !!</div>
+</ng-template>

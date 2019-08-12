@@ -1,3 +1,60 @@
-<p>
-  document works!
-</p>
+
+<div class="card">
+  <h3 class="card-header text-lg-left">List of Documents</h3>
+  <div class="card-body table-responsive">    
+  <table class="table table-hover no-cellpadding">
+    <thead>
+      <tr>
+        <th scope="row">No.</th>
+        <th scope="row">File Name</th>
+        <th scope="row">Type</th>
+        <th scope="row">Description</th>
+        <th scope="row"></th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let file of files">
+        <td>{{file.no}}</td>
+        <td>{{file.name}}</td>
+        <td>{{file.type}}</td>
+        <td>{{file.desc}}</td>
+        <td><button class="btn btn-success float-left">download</button><button class="btn btn-danger float-right">delete</button></td>
+    </tr>
+    </tbody>
+  </table>
+   </div>  
+  </div> 
+<br>
+
+<div class="card">
+  <h3 class="card-header text-lg-left">Upload New Document</h3>
+  <div class="card-body">    
+    <form id="fileuploadform" action="#" ngNativeValidate>
+      <div class="form-group row">
+          <label for="fname" class="col-md-4 col-form-label text-md-left">Upload a document</label>
+          <div class="col-md-8">
+              <input  type="file" id="fname" class="form-control" accept=".pdf, .jpeg, .docx, .png" name="fname" required>
+          </div>
+      </div>
+
+      <div class="form-group row">
+      <label for="filedesc" class="col-md-4 col-form-label text-md-left">Description</label>
+       <div class="col-md-8">
+          <input type="text" id="filedesc" class="form-control" name="filedesc" required>
+      </div>
+      </div>
+      
+      <div class="col-md-6 offset-md-10">
+              <button type="submit" (click)="uploadfile()"  class="btn btn-primary">
+              Upload
+              </button>
+      </div>      
+  </form>
+  </div>  
+  </div>
+<br>
+<div class="card">
+  <div class="card-header text-lg-left">Go to <a href="/users">Users list</a></div>
+</div>
+
+
