@@ -29,11 +29,11 @@
 <div class="card">
   <h3 class="card-header text-lg-left">Upload New Document</h3>
   <div class="card-body">    
-    <form id="fileuploadform" action="#" ngNativeValidate>
+    <form ngNoForm id="fileuploadform" action="http://localhost:3001/uploadfile" method="post" enctype="multipart/form-data" ngNativeValidate>
       <div class="form-group row">
           <label for="fname" class="col-md-4 col-form-label text-md-left">Upload a document</label>
           <div class="col-md-8">
-              <input  type="file" id="fname" class="form-control" accept=".pdf, .jpeg, .docx, .png" name="fname" required>
+              <input  type="file" id="fname" class="form-control"  name="fname" required>
           </div>
       </div>
 
@@ -45,7 +45,7 @@
       </div>
       
       <div class="col-md-6 offset-md-10">
-              <button type="submit" (click)="uploadfile()"  class="btn btn-primary">
+              <button type="submit" value="submit"  class="btn btn-primary">
               Upload
               </button>
       </div>      
