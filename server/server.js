@@ -1,6 +1,6 @@
-const doc = require('./document')
-const users = require('./users')
-const dbObj = require('./database');
+var doc = require('./documents')
+var users = require('./users')
+const dbObj = require('./database')
 var express = require('express')
 var app = express()
 
@@ -17,7 +17,7 @@ app.use(function(req, res, next) {
 
 //routing
 app.use("/document", doc);
-app.use("/users", users);
+//app.use("/users", users);
 
 //initializing DB and start listening to port
 dbObj.initDb(() => {

@@ -1,7 +1,8 @@
-var router = express.Router()
-var multer = require('multer')
-var upload = multer({ dest: 'uploads/' })
-
+const express = require('express')
+const router = express.Router()
+const multer = require('multer')
+const upload = multer({ dest: 'uploads/' })
+const dbObj = require('./database')
 
 router.post('/uploadfile', upload.single('fname'), function (req, res, next) {
   // req.file is the `fname` file
@@ -12,9 +13,15 @@ router.post('/uploadfile', upload.single('fname'), function (req, res, next) {
     error.httpStatusCode = 400
     return next(error)
   }
-  res.status(200).send("file uploaded");
-  console.log(req.file)
-  console.log(req.body)
+  req.file.desc = req.body.filedesc 
+  dbObj.insertDocDetails(req.file, (err) => {
+    if (err) {
+      return err
+    }
+    console.log("File data inserted to DB")
+    console.log(req.file)
+    res.end('File uploaded')
+  }) 
 })
 
 
