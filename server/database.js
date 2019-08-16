@@ -4,7 +4,7 @@ var MongoClient = require('mongodb').MongoClient
 
 let dbInstance
 
-//initialize DB connection
+//initialize DB connec  tion
 function initDb(callback) {
    if (dbInstance) {
         console.warn("Trying to init DB again!")
