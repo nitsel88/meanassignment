@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DocumentService } from '../document.service'
+import { FileUploader } from 'ng2-file-upload';
 
 @Component({
   selector: 'app-document',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DocumentComponent implements OnInit {
 
-  files = [{
+  /*files = [{
     no: 1 ,
     name: "sample_pdf.pdf",
     type: "application/pdf",
@@ -17,10 +19,19 @@ export class DocumentComponent implements OnInit {
     name: "myfile.txt",
     type: "application/txt",
     desc: "my text file"
-  }]
-  constructor() { }
+  }] */
+  files;
+  public uploader:FileUploader = new FileUploader({url:'http://localhost:3001/document/uploadfile'});
+
+  constructor(private docService: DocumentService) { }
 
   ngOnInit() {
+    this.docService.getDocList().subscribe(data => {
+       console.log(data)
+       this.files = data
+    }, error => {
+
+    })
   }
 
 }

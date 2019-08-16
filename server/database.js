@@ -40,16 +40,17 @@ function insertDocDetails (docDtl, callback) {
 
 //get list of documents uploaded already
 function getDocList () {
+  return new Promise((resolve, reject)=> {
   db = getDb()
   db.collection("mydocs").find({}).toArray(function(err, docs) {
     if (err) { 
-      return err
+      reject (err)
     }
-  console.log("Found the following records");
-  console.log(docs)
-
-  return docs;
-});
+     console.log("Found the following records");
+     console.log(docs)
+     resolve(docs)
+    })
+  })
 }
 
 
@@ -66,17 +67,20 @@ function insertUser (user) {
 
 //get list of users
 function getUsers () {
+  return new Promise((resolve, reject)=> {
   db = getDb()
   db.collection("users").find({}).toArray(function(err, users) {
     if (err) { 
-      return err
+      reject (err)
     }
   console.log("Found the following users");
   console.log(users)
 
-  return users;
-});
+  resolve(users);
+  });
+ })
 }
+
 module.exports = {
     getDb,
     initDb,

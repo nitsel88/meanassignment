@@ -13,10 +13,10 @@
       </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let file of files">
-        <td>{{file.no}}</td>
-        <td>{{file.name}}</td>
-        <td>{{file.type}}</td>
+    <tr *ngFor="let file of files; index as i">
+        <td>{{i+1}}</td>
+        <td>{{file.originalname}}</td>
+        <td>{{file.mimetype}}</td>
         <td>{{file.desc}}</td>
         <td><button class="btn btn-success float-left">download</button><button class="btn btn-danger float-right">delete</button></td>
     </tr>
@@ -29,11 +29,11 @@
 <div class="card">
   <h3 class="card-header text-lg-left">Upload New Document</h3>
   <div class="card-body">    
-    <form ngNoForm id="fileuploadform" action="http://localhost:3001/document/uploadfile" method="post" enctype="multipart/form-data" ngNativeValidate>
+    <form id="fileuploadform" method="post" ngNativeValidate>
       <div class="form-group row">
           <label for="fname" class="col-md-4 col-form-label text-md-left">Upload a document</label>
           <div class="col-md-8">
-              <input  type="file" id="fname" class="form-control"  name="fname" required>
+              <input  type="file" id="fname" class="form-control"  name="fname" ng2FileSelect [uploader]="uploader" required>
           </div>
       </div>
 
@@ -43,9 +43,12 @@
           <input type="text" id="filedesc" class="form-control" name="filedesc" required>
       </div>
       </div>
-      
+      <div class="progress" style="">
+        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+      </div>
+      <br>
       <div class="col-md-6 offset-md-10">
-              <button type="submit" value="submit"  class="btn btn-primary">
+              <button type="submit" value="submit" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length"  class="btn btn-primary">
               Upload
               </button>
       </div>      

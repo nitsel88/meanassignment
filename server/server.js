@@ -10,14 +10,16 @@ const port = 3001;
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
+    res.header("Access-Control-Allow-Origin", req.headers.origin);
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Credentials", true);
     next();
 });
 
 //routing
 app.use("/document", doc);
-//app.use("/users", users);
+app.use("/users", users);
 
 //initializing DB and start listening to port
 dbObj.initDb(() => {
