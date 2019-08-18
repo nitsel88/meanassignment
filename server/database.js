@@ -53,6 +53,18 @@ function getDocList () {
   })
 }
 
+function deleteDoc(docname) {
+  return new Promise((resolve, reject)=> {
+    db = getDb()
+    db.collection("mydocs").deleteOne({filename:docname}, (err) => {
+        if (err) { 
+          reject (err)
+        }
+        resolve({deleted: docname})
+      })
+  }) 
+}
+
 
 //insert user details
 function insertUser (user) {
@@ -86,6 +98,7 @@ module.exports = {
     initDb,
     insertDocDetails,
     getDocList,
+    deleteDoc,
     insertUser,
-    getUsers
+    getUsers 
 };

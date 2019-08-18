@@ -13,12 +13,12 @@
       </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let file of files; index as i">
+    <tr *ngFor="let file of files | async; index as i">
         <td>{{i+1}}</td>
         <td>{{file.originalname}}</td>
         <td>{{file.mimetype}}</td>
         <td>{{file.desc}}</td>
-        <td><button class="btn btn-success float-left">download</button><button class="btn btn-danger float-right">delete</button></td>
+        <td><button  (click)="download(file.filename)" class="btn btn-success float-left">download</button><button  (click)="delete(file.filename)" class="btn btn-danger float-right">delete</button></td>
     </tr>
     </tbody>
   </table>
@@ -40,17 +40,18 @@
       <div class="form-group row">
       <label for="filedesc" class="col-md-4 col-form-label text-md-left">Description</label>
        <div class="col-md-8">
-          <input type="text" id="filedesc" class="form-control" name="filedesc" required>
+          <input type="text" id="filedesc" class="form-control" name="filedesc" [(ngModel)]="filedesc" required>
       </div>
       </div>
       <div class="progress" style="">
         <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
       </div>
       <br>
+      <div style="color: green" class="col-md-2" *ngIf="!uploader.isUploading && upCnt">File uploaded</div>
       <div class="col-md-6 offset-md-10">
-              <button type="submit" value="submit" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length"  class="btn btn-primary">
+       <button type="submit" value="submit" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length"  class="btn btn-primary">
               Upload
-              </button>
+      </button>
       </div>      
   </form>
   </div>  

@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const multer = require('multer')
-const upload = multer({ dest: 'uploads/' })
 const dbObj = require('./database')
+var fs = require('fs');
 
+const uploadpath = './uploads/'
 
 router.get('/list', (req, res) => {
   dbObj.getDocList().then((docs)=> {
@@ -14,14 +15,28 @@ router.get('/list', (req, res) => {
    })
 })
 
-router.post('/uploadfile', upload.single('fname'), function (req, res, next) {
-  // req.file is the `fname` file
+var storage = multer.diskStorage({ //multers disk storage settings
+  destination: function (req, file, cb) {
+      cb(null, uploadpath);
+  }
+});
+
+var upload = multer({ //multer settings
+  storage: storage
+}).single('file');
+
+router.post('/uploadfile', function (req, res) {
+  upload(req, res, function(err) {
+ // req.file is the `fname` file
   // req.body will hold the text fields, if there were any
+  if(err) {
+    return err
+  }
   const file = req.file
   if (!file) {
     const error = new Error('Please upload a file')
     error.httpStatusCode = 400
-    return next(error)
+    return err
   }
   req.file.desc = req.body.filedesc 
   dbObj.insertDocDetails(req.file, (err) => {
@@ -32,7 +47,23 @@ router.post('/uploadfile', upload.single('fname'), function (req, res, next) {
     console.log(req.file)
     res.end('File uploaded')
   }) 
+  }) 
 })
+
+router.delete('/deletefile',function(req,res){
+  console.log("delete: req.body.filename: " + req.body.filename);
+  filepath = uploadpath +  req.body.filename
+  fs.unlink(filepath, (err) => {
+    if (err) throw err;
+    console.log(filepath + ' was deleted');
+    dbObj.deleteDoc(req.body.filename).then((delres)=> {
+       if(delres.deleted == req.body.filename) {
+         console.log("DB deleted file: " + delres.deleted)
+         res.json({response: "deleted file"+ req.body.filename})
+       }
+    })
+  });
+});
 
 
 module.exports = router

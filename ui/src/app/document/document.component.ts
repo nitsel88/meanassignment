@@ -7,6 +7,8 @@ import { FileUploader } from 'ng2-file-upload';
   templateUrl: './document.component.html',
   styleUrls: ['./document.component.css']
 })
+
+
 export class DocumentComponent implements OnInit {
 
   /*files = [{
@@ -20,18 +22,47 @@ export class DocumentComponent implements OnInit {
     type: "application/txt",
     desc: "my text file"
   }] */
-  files;
+  files:any
+  upCnt:boolean
+  filedesc:string
+
   public uploader:FileUploader = new FileUploader({url:'http://localhost:3001/document/uploadfile'});
 
-  constructor(private docService: DocumentService) { }
+  constructor(private docService: DocumentService) { 
+    //on init
+    this.files = this.docService.getDocList()
+
+    //on upload
+    this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
+      console.log("ImageUpload:uploaded:", item, status);
+      this.upCnt = true
+      this.files = this.docService.getDocList()
+    }
+
+    //to add file description to request
+    this.uploader.onBuildItemForm = (item:any, form) => {
+      console.log(this.filedesc)
+      form.append("filedesc", this.filedesc)
+    }
+
+     //to prevent multiple file uploads
+    this.uploader.onAfterAddingFile  = (f) => {
+      if (this.uploader.queue.length > 1) { this.uploader.queue.splice(0, 1); } 
+    }
+  }
+
+  download(filename) {
+    console.log(filename)
+  }
+
+  delete(filename) {
+    this.docService.deleteDoc(filename).then(()=>{
+      this.files = this.docService.getDocList()
+    })
+  }
 
   ngOnInit() {
-    this.docService.getDocList().subscribe(data => {
-       console.log(data)
-       this.files = data
-    }, error => {
-
-    })
+    
   }
 
 }
