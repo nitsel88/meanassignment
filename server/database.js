@@ -33,7 +33,7 @@ function getDb() {
 //insert uploaded document meta data to mydocs collection
 function insertDocDetails (docDtl, callback) {
   db = getDb()
-  db.collection("mydocs").insertOne(docDtl, function(err, res) {
+  db.collection(" ").insertOne(docDtl, function(err, res) {
   return callback(err)
  });
 }
@@ -47,6 +47,20 @@ function getDocList () {
       reject (err)
     }
      console.log("Found the following records");
+     console.log(docs)
+     resolve(docs)
+    })
+  })
+}
+
+function getDocDtlForName (docName) {
+    return new Promise((resolve, reject)=> {
+  db = getDb()
+  db.collection("mydocs").find({filename: docName}).toArray(function(err, docs) {
+    if (err) { 
+      reject (err)
+    }
+     console.log("Found the record:");
      console.log(docs)
      resolve(docs)
     })
@@ -99,6 +113,7 @@ module.exports = {
     insertDocDetails,
     getDocList,
     deleteDoc,
+    getDocDtlForName,
     insertUser,
     getUsers 
 };

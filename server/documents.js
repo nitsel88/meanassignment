@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const multer = require('multer')
 const dbObj = require('./database')
+var mime = require('mime');
 var fs = require('fs');
 
 const uploadpath = './uploads/'
@@ -63,6 +64,20 @@ router.delete('/deletefile',function(req,res){
        }
     })
   });
+});
+
+router.get('/download/:filename', function(req, res){
+  let filename = req.params.filename
+  let file = uploadpath + filename
+  //get the file meta data from db
+  dbObj.getDocDtlForName(filename).then((doc)=> {
+  
+   res.setHeader('Content-disposition', 'attachment; filename=' + doc[0].originalname);
+   res.setHeader('Content-type', doc[0].mimetype);
+   let filestream = fs.createReadStream(file);
+   filestream.pipe(res); 
+  })
+
 });
 
 

@@ -47,7 +47,7 @@
         <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
       </div>
       <br>
-      <div style="color: green" class="col-md-2" *ngIf="!uploader.isUploading && upCnt">File uploaded</div>
+      <div style="color: green" class="col-md-4" *ngIf="!uploader.isUploading && upCnt">File uploaded</div>
       <div class="col-md-6 offset-md-10">
        <button type="submit" value="submit" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length"  class="btn btn-primary">
               Upload
