@@ -10,6 +10,7 @@ import { DocumentComponent } from './document/document.component';
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
 import { UserRegistrationResultsComponent } from './user-registration-results/user-registration-results.component';
 import { DocumentService } from './document.service'
+import { UserService } from './user.service'
 @NgModule({
    declarations: [
       AppComponent,
@@ -26,7 +27,7 @@ import { DocumentService } from './document.service'
       AppRoutingModule,
       HttpClientModule
    ],
-   providers: [DocumentService],
+   providers: [DocumentService, UserService],
    bootstrap: [
       AppComponent
    ]

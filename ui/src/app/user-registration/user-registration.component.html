@@ -2,25 +2,25 @@
                 <div class="card">
                     <div class="card-header"> <h2>User Registration Form</h2></div>
                     <div class="card-body">
-                        <form id="form1" action="#" ngNativeValidate>
+                        <form id="form1" ngNativeValidate>
                             <div class="form-group row">
                                 <label for="fname" class="col-md-4 col-form-label text-md-left">First Name</label>
                                 <div class="col-md-8">
-                                    <input  type="text" id="fname" class="form-control" name="fname" [(ngModel)]="user" required>
+                                    <input  type="text" id="fname" class="form-control" name="fname" [(ngModel)]="user.fname" required>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                             <label for="lname" class="col-md-4 col-form-label text-md-left">Last Name</label>
                              <div class="col-md-8">
-                                <input type="text" id="lname" class="form-control" name="lname" required>
+                                <input type="text" id="lname" class="form-control" name="lname"  [(ngModel)]="user.lname" required>
                             </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="ssoid" class="col-md-4 col-form-label text-md-left">SSO ID</label>
                                 <div class="col-md-8">
-                                    <input type="number" id="ssoid" class="form-control" name="ssoid"  required>
+                                    <input type="number" id="ssoid" class="form-control" name="ssoid" [(ngModel)]="user.ssoid"   required>
                                 </div>
                             </div>
 
@@ -28,12 +28,12 @@
                             <div class="form-group row">
                                 <label for="email" class="col-md-4 col-form-label text-md-left">Email</label>
                                 <div class="col-md-8">
-                                    <input type="email" id="email" class="form-control" name="email"   required>
+                                    <input type="email" id="email" class="form-control" name="email"  [(ngModel)]="user.email"  required>
                                 </div>
                             </div>
 
                             <div class="col-md-6 offset-md-8">
-                                    <button type="submit" (click)="registerme()"  class="btn btn-primary">
+                                    <button (click)="registerme()"  class="btn btn-primary">
                                     Register
                                     </button>
                                     or 

@@ -14,4 +14,13 @@ router.get('/', (req, res) => {
 })
 
 
+router.post('/register', (req, res) => {
+   
+   dbObj.insertUser(req.body).then((status) => {
+       console.log(status)
+       res.json(status)
+   })
+})
+
+
 module.exports = router

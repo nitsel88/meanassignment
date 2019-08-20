@@ -33,7 +33,7 @@ function getDb() {
 //insert uploaded document meta data to mydocs collection
 function insertDocDetails (docDtl, callback) {
   db = getDb()
-  db.collection(" ").insertOne(docDtl, function(err, res) {
+  db.collection("mydocs").insertOne(docDtl, function(err, res) {
   return callback(err)
  });
 }
@@ -82,13 +82,16 @@ function deleteDoc(docname) {
 
 //insert user details
 function insertUser (user) {
-  db = getDb()
-  db.collection("users").insertOne(user, function(err, res) {
+    return new Promise((resolve, reject)=> {
+    db = getDb()
+    db.collection("users").insertOne(user, function(err, res) {
     if (err) { 
-      return err
+      reject (err)
     }
     console.log("user inserted: " + user);
- });
+    resolve({status: "registered" }) 
+    })
+  })
 }
 
 //get list of users

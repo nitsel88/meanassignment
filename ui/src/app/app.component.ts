@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router, RoutesRecognized} from '@angular/router';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -10,15 +11,18 @@ import {map} from 'rxjs/operators';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'File Manager';
+  title = 'File Manager'
   showNavLinks:boolean = false;
 
-  constructor(route: ActivatedRoute) {
-      const url: Observable<string> = route.url.pipe(map(segments => segments.join('')));
-      this.showNavLinks = true;
-      url.subscribe((urlstring) => {
-        console.log(urlstring);
-      })
+
+  constructor(router:Router) { 
+     router.events.subscribe(event=> {
+      if (event instanceof RoutesRecognized) {
+        if (event.url.includes('userstatus')) {
+        this.showNavLinks = true;
+        }
+      }
+     })
    }
 
   ngOnInit() {

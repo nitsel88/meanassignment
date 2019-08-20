@@ -43,6 +43,8 @@ router.post('/uploadfile', function (req, res) {
   dbObj.insertDocDetails(req.file, (err) => {
     if (err) {
       return err
+      console.log("insert error: ")
+            console.log(err)
     }
     console.log("File data inserted to DB")
     console.log(req.file)

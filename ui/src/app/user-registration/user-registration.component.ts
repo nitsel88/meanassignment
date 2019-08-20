@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { UserService } from '../user.service'
 
 @Component({
   selector: 'app-user-registration',
@@ -8,16 +8,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-registration.component.css']
 })
 export class UserRegistrationComponent implements OnInit {
-  user: string;
+  user = {
+   fname: "",
+   lname: "",
+   ssoid: 0,
+   email: ""
+  }
   status = "success"
-  constructor(private router: Router) { }
+  constructor(private router: Router, private userservice: UserService) { }
 
   ngOnInit() {
-    
   }
 
   registerme() {
-    this.router.navigate(['userstatus', this.user, this.status]);
-    console.log(this.user);
+      this.userservice.registerUser(this.user).subscribe((data)=> {
+
+        this.router.navigate(['userstatus', this.user.fname, "success"]);
+
+    })
   }
 }

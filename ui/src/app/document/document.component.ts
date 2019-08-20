@@ -60,15 +60,6 @@ export class DocumentComponent implements OnInit {
      })
  }
 
-/*  download(filename) {
-    console.log(filename)
-     this.docService.getFile(filename).subscribe(fileData=> {
-        let b:any = new Blob([fileData], { type: 'application/zip' });
-        var url= window.URL.createObjectURL(b);
-        window.open(url);
-     })
-  }*/
-
   delete(filename) {
     this.docService.deleteDoc(filename).then(()=>{
       this.files = this.docService.getDocList()
